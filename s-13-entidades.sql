@@ -21,14 +21,14 @@ create table entidad(
     using index tablespace proveedores_c0_idx_ts,
   nombre varchar2(40) not null,
   descripcion varchar2(400) not null
-) tablespace proveedores_c1_data_ts;
+) tablespace proveedores_c1_data_ts nologging;
 
 create table nivel_estudios(
   nivel_estudios_id number(2,0) constraint nivel_estudios_pk primary key
     using index tablespace proveedores_c0_idx_ts,
   nivel varchar2(40) not null,
   descripcion varchar2(400) not null
-) tablespace proveedores_c1_data_ts;
+) tablespace proveedores_c1_data_ts nologging;
 
 create table servicio(
   servicio_id number(10,0) constraint servicio_pk primary key
@@ -63,7 +63,7 @@ create table proveedor(
     using index tablespace proveedores_c0_idx_ts,
   constraint proveedor_telefono_movil_uk unique(telefono_movil)
     using index tablespace proveedores_c0_idx_ts
-) tablespace proveedores_c1_data_ts
+) pctfree 10 tablespace proveedores_c1_data_ts
 lob (foto) store as securefile proveedor_foto_lob (
   tablespace proveedores_c0_lob_hot_ts
   index proveedor_foto_lob_ix (tablespace proveedores_c0_idx_ts)
@@ -86,7 +86,7 @@ create table cuenta_bancaria(
     references proveedor(proveedor_id),
   constraint cuenta_bancaria_clabe_uk unique(clabe)
     using index tablespace proveedores_c0_idx_ts
-) tablespace proveedores_c1_data_ts;
+) pctfree 10 tablespace proveedores_c1_data_ts;
 
 create table tipo_servicio(
   tipo_servicio_id number(10,0) constraint tipo_servicio_pk primary key
@@ -96,7 +96,7 @@ create table tipo_servicio(
     references proveedor(proveedor_id),
   servicio_id not null constraint tipo_servicio_servicio_id_fk
     references servicio(servicio_id)
-) tablespace proveedores_c1_data_ts;
+) pctfree 10 tablespace proveedores_c1_data_ts;
 
 create table comprobante(
   comprobante_id number(10,0) constraint comprobante_pk primary key
@@ -168,7 +168,7 @@ create table cliente(
   constraint cliente_telefono_uk unique(telefono)
     using index tablespace servicios_c0_idx_ts,
   constraint cliente_tipo_chk check(tipo in('P','E'))
-) tablespace servicios_c0_data_ts;
+) pctfree 10 tablespace servicios_c0_data_ts;
 
 create table cliente_empresa(
   cliente_id constraint cliente_empresa_pk primary key
@@ -179,7 +179,7 @@ create table cliente_empresa(
   num_empleados number(4,0) not null,
   constraint cliente_empresa_cliente_id_fk foreign key (cliente_id)
     references cliente(cliente_id)
-) tablespace servicios_c0_data_ts
+) pctfree 10 tablespace servicios_c0_data_ts
 lob (logo) store as securefile cliente_empresa_logo_lob (
   tablespace servicios_c0_lob_hot_ts
   index cliente_empresa_logo_lob_ix (tablespace servicios_c0_idx_ts)
@@ -196,7 +196,7 @@ create table cliente_particular(
     references cliente(cliente_id),
   constraint cliente_particular_curp_uk unique(curp)
     using index tablespace servicios_c0_idx_ts
-) tablespace servicios_c0_data_ts
+) pctfree 10 tablespace servicios_c0_data_ts
 lob (foto) store as securefile cliente_particular_foto_lob (
   tablespace servicios_c0_lob_hot_ts
   index cliente_particular_foto_lob_ix (tablespace servicios_c0_idx_ts)
@@ -205,16 +205,17 @@ lob (foto) store as securefile cliente_particular_foto_lob (
 create table tarjeta_credito(
   tarjeta_credito_id number(10,0) constraint tarjeta_credito_pk primary key
     using index tablespace servicios_c0_idx_ts,
-  numero number(16,0) not null, 
+  numero_bancario number(16,0) not null, 
+  numero_tarjeta number(1,0) not null,
   anio_expiracion varchar2(2) not null,
   mes_expiracion varchar2(2) not null,
   cvv varchar2(3) not null,
   banco varchar2(40) not null,
   cliente_id not null constraint tarjeta_credito_cliente_id_fk
     references cliente(cliente_id),
-  constraint tarjeta_credito_numero_uk unique(numero)
+  constraint tarjeta_credito_numero_bancario_uk unique(numero_bancario)
     using index tablespace servicios_c0_idx_ts
-) tablespace servicios_c0_data_ts;
+) pctfree 10 tablespace servicios_c0_data_ts;
 
 create table estatus_solicitud(
   estatus_solicitud_id number(10,0) constraint estatus_solicitud_pk primary key
@@ -225,7 +226,7 @@ create table estatus_solicitud(
   constraint estatus_solicitud_activo_chk check(
     activo in(1,0)
   )
-) tablespace servicios_c0_data_ts;
+) tablespace servicios_c0_data_ts nologging;
 
 create table servicio_solicitud(
   servicio_solicitud_id number(10,0) constraint servicio_solicitud_pk primary key
@@ -239,7 +240,7 @@ create table servicio_solicitud(
   estatus_solicitud_id not null constraint servicio_solicitud_estatus_solicitud_id_fk
     references estatus_solicitud(estatus_solicitud_id),
   tipo_servicio_rid number(10,0) not null
-) tablespace servicios_c0_data_ts
+) pctfree 10 tablespace servicios_c0_data_ts
 lob (detalles) store as securefile servicio_solicitud_detalles_lob (
   tablespace servicios_c0_lob_hot_ts
   index servicio_solicitud_detalles_lob_ix (tablespace servicios_c0_idx_ts)
@@ -264,7 +265,7 @@ create table servicio_contrato(
   prototipo blob,
   servicio_solicitud_id not null constraint servicio_contrato_servicio_solicitud_id_fk
     references servicio_solicitud(servicio_solicitud_id)
-) tablespace servicios_c0_data_ts
+) pctfree 10 tablespace servicios_c0_data_ts
 lob (prototipo) store as securefile servicio_contrato_prototipo_lob (
   tablespace servicios_c0_lob_hot_ts
   index servicio_contrato_prototipo_lob_ix (tablespace servicios_c0_idx_ts)
