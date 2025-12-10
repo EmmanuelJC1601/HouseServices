@@ -90,3 +90,13 @@ rm -f /unam/bda/pf/c2/d01/*.dbf
 rm -f /unam/bda/pf/c2/d02/*.dbf
 rm -f /unam/bda/pf/c3/d01/*.dbf
 rm -f /unam/bda/pf/c3/d02/*.dbf
+
+echo "Creando directorios para Archivelogs"
+
+if [ -d "/unam/bda/pf/archivelogs" ]; then
+  echo "Directorio c3/d01 ya existe"
+else 
+  mkdir -p /unam/bda/pf/archivelogs
+  chown -R oracle:oinstall /unam/bda/pf/archivelogs
+  chmod -R 750 /unam/bda/pf/archivelogs
+fi;
