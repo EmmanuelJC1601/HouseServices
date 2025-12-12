@@ -12,7 +12,8 @@ create user prov_admin identified by 1234
   quota unlimited on proveedores_c1_data_ts
   quota unlimited on proveedores_c0_idx_ts
   quota unlimited on proveedores_c0_lob_hot_ts
-  quota unlimited on proveedores_c2_lob_warm_ts;
+  quota unlimited on proveedores_c2_lob_warm_ts
+  quota unlimited on proveedores_c3_hist_ts;
 
 grant create session, create table, create procedure to prov_admin;
 
@@ -31,7 +32,8 @@ drop user if exists serv_admin cascade;
 create user serv_admin identified by 1234 
   quota unlimited on servicios_c0_data_ts
   quota unlimited on servicios_c0_idx_ts
-  quota unlimited on servicios_c0_lob_hot_ts;
+  quota unlimited on servicios_c0_lob_hot_ts
+  quota unlimited on servicios_c3_hist_ts;
 
 grant create session, create table, create procedure to serv_admin;
 

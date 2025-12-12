@@ -12,17 +12,14 @@ fi;
 
 echo \
 "db_name=${ORACLE_SID}
-memory_target=1G
-db_domain=fi.unam
-enable_pluggable_database=true
+memory_target=2G
 control_files=(
   '/unam/bda/pf/disks/d01/app/oracle/oradata/${ORACLE_SID^^}/control01.ctl',
   '/unam/bda/pf/disks/d02/app/oracle/oradata/${ORACLE_SID^^}/control02.ctl',
   '/unam/bda/pf/disks/d03/app/oracle/oradata/${ORACLE_SID^^}/control03.ctl'
 )
-db_recovery_file_dest='/unam/bda/pf/disks/d03/app/oracle/oradata'
-db_recovery_file_dest_size=1G
-db_flashback_retention_target=1440
+db_domain=fi.unam
+enable_pluggable_database=true
 " >$pfile
 
 echo "Listo"

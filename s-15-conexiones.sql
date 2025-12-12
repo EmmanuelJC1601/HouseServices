@@ -6,6 +6,16 @@
 Prompt Conectando como sys en cdb$root
 connect sys/system0 as sysdba
 
+Prompt Modificando parametro processes a 300
+alter system set processes=300 scope=spfile;
+
+Prompt Reiniciar instancia
+shutdown immediate
+startup
+
+Prompt Conectando nuevamente como sys en cdb$root
+connect sys/system0 as sysdba
+
 alter system set dispatchers='(dispatchers=3)(protocol=tcp)' scope=spfile;
 alter system set shared_servers=10 scope=spfile;
 alter system register;

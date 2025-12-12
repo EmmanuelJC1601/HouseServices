@@ -45,3 +45,13 @@ echo "Crear los directorios donde los loop devices serán montados"
 mkdir -p ${UNAM_HOME}/bda/pf/disks/d01
 mkdir -p ${UNAM_HOME}/bda/pf/disks/d02
 mkdir -p ${UNAM_HOME}/bda/pf/disks/d03
+
+
+# Despues de ejecutar y verificar funcionamiento, en la máquina host editar 
+# el archivo /etc/fstab y agregar lo siguiente al final sin los primeros #
+
+##loop devices agregados para la materia BDA en la máquina host (Proyecto)
+##Asegurarse que los archivos img existan.
+#/unam/bda/pf/disk-images/disk1.img /unam/bda/pf/disks/d01 auto loop 0 0
+#/unam/bda/pf/disk-images/disk3.img /unam/bda/pf/disks/d02 auto loop 0 0
+#/unam/bda/pf/disk-images/disk2.img /unam/bda/pf/disks/d03 auto loop 0 0

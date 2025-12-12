@@ -56,8 +56,35 @@ else
   chmod -R 750 app
 fi;
 
-echo "Mostrando directorio de data files"
+echo "Verificando existencia de directorio para Proveedores"
+
+if [ -d "/unam/bda/pf/pdbs/proveedores" ]; then
+  echo "Directorio para data files ya existe, se omite creación"
+else 
+  echo "1. Creando directorios para data files de proveedores"
+  cd /unam/bda/pf
+  mkdir -p pdbs/proveedores
+  chown -R oracle:oinstall pdbs
+  chmod -R 750 pdbs
+fi;
+
+echo "Verificando existencia de directorio para Servicios"
+
+if [ -d "/unam/bda/pf/pdbs/servicios" ]; then
+  echo "Directorio para data files ya existe, se omite creación"
+else 
+  echo "1. Creando directorios para data files de servicios"
+  cd /unam/bda/pf
+  mkdir -p pdbs/servicios
+  chown -R oracle:oinstall pdbs
+  chmod -R 750 pdbs
+fi;
+
+echo "Mostrando directorio de data files root y seed"
 ls -l /opt/oracle/oradata
+
+echo "Mostrando directorio de data files proveedores y servicios"
+ls -l /unam/bda/pf/pdbs
 
 echo "Mostrando directorios para control files y Redo Logs"
 ls -l /unam/bda/pf/disks/d0*/app/oracle/oradata
@@ -69,3 +96,5 @@ rm -f /unam/bda/pf/disks/d03/app/oracle/oradata/FREE/*
 
 rm -f /opt/oracle/oradata/${ORACLE_SID^^}/*.dbf
 rm -f /opt/oracle/oradata/${ORACLE_SID^^}/pdbseed/*.dbf
+rm -f /unam/bda/pf/pdbs/proveedores/*dbf
+rm -f /unam/bda/pf/pdbs/servicios/*.dbf
