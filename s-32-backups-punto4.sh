@@ -80,5 +80,8 @@ run{
   restore datafile 24 preview;
   restore datafile 18 preview;
 
+  report obsolete;
+  report need backup;
+
 }
 EOF
