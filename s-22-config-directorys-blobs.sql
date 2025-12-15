@@ -13,7 +13,8 @@ connect sys/system0@proveedores as sysdba
 prompt ==> Creando usuario administrador de directorios en proveedores
 drop user if exists admin_files_prov cascade;
 create user admin_files_prov identified by admin_files_prov
-  default tablespace users quota 10m on users;
+  default tablespace proveedores_c1_data_ts
+  quota unlimited on proveedores_c1_data_ts;
 grant create session, create any directory to admin_files_prov;
 
 prompt ==> Conectando como admin_files_prov
@@ -41,7 +42,8 @@ connect sys/system0@servicios as sysdba
 prompt ==> Creando usuario administrador de directorios en servicios
 drop user if exists admin_files_serv cascade;
 create user admin_files_serv identified by admin_files_serv
-  default tablespace users quota 10m on users;
+  default tablespace servicios_c0_data_ts 
+  quota unlimited on servicios_c0_data_ts;
 grant create session, create any directory to admin_files_serv;
 
 prompt ==> Conectando como admin_files_serv
