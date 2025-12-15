@@ -5,22 +5,18 @@
 # @Descripción: Copia una imagen y un pdf a cada carpeta fisica
 #               asociada a los directorys
 
-set -euo pipefail
 
 echo "==> ${USER} ocupo tu password aca 👇, no va a tronar... espero"
 sudo -u oracle bash <<'EOF'
-  set -euo pipefail
 
-  PATH_PREFIX="/opt/oracle/oradata/FREE"
-
-  BASE_PROV="${PATH_PREFIX}/files/unam/bda/HouseServices/blobs_prov"
+  BASE_PROV="/opt/oracle/oradata/FREE/files/unam/bda/pf/blobs_prov"
   PROV_IMG_DIR="${BASE_PROV}/proveedor_imgs"
   PROV_ID_DIR="${BASE_PROV}/proveedor_pdfs"
   PROV_COMP_DIR="${BASE_PROV}/comprobantes_pdfs"
   COMP_DOC_DIR="${BASE_PROV}/documentos_pdfs"
   EVID_IMG_DIR="${BASE_PROV}/evidencias_imgs"
 
-  BASE_SERV="${PATH_PREFIX}/files/unam/bda/HouseServices/blobs_serv"
+  BASE_SERV="/opt/oracle/oradata/FREE/files/unam/bda//pf/blobs_serv"
   SERV_DET_DIR="${BASE_SERV}/detalles_pdfs"
   SERV_CON_DIR="${BASE_SERV}/contratos_pdfs"
   PROV_DEP_DIR="${BASE_SERV}/comprobante_pdfs"

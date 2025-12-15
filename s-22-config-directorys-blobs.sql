@@ -3,6 +3,8 @@
 --@Fecha creación:  08/12/2025
 --@Descripción: Crea usuarios admin de DIRECTORY y define directorys
 
+--Asegurarse que el usario Oracle tiene permiso de escritura en la rurta de los directorys
+
 whenever sqlerror exit rollback
 
 prompt ==> Conectando como sysdba en proveedores
@@ -17,9 +19,8 @@ grant create session, create any directory to admin_files_prov;
 prompt ==> Conectando como admin_files_prov
 connect admin_files_prov/admin_files_prov@proveedores
 
-prompt ==> Creando objetos DIRECTORY con RUTAS RELATIVAS (por PATH_PREFIX) en proveedores
---Configura segun tu entorno :b
-define hs_base = 'files/unam/bda/HouseServices/blobs_prov';
+prompt ==> Creando objetos DIRECTORY con RUTAS Absolutas (sin uso de PATH PREFIX) en proveedores
+define hs_base = '/opt/oracle/oradata/FREE/files//unam/bda/pf/blobs_prov';
 
 create or replace directory PROVEEDOR_FOTO             as '&hs_base/proveedor_imgs';
 create or replace directory PROVEEDOR_IDENTIFICACION   as '&hs_base/proveedor_pdfs';
@@ -46,8 +47,8 @@ grant create session, create any directory to admin_files_serv;
 prompt ==> Conectando como admin_files_serv
 connect admin_files_serv/admin_files_serv@servicios
 
-prompt ==> Creando objetos DIRECTORY con RUTAS RELATIVAS (por PATH_PREFIX) en servicios
-define hs_base = 'files/unam/bda/HouseServices/blobs_serv';
+prompt ==> Creando objetos DIRECTORY con RUTAS Absolutas (sin uso de PATH PREFIX) en proveedores
+define hs_base = '/opt/oracle/oradata/FREE/files//unam/bda/pf/blobs_serv';
 
 create or replace directory SERVICIO_SOLICITUD_DETALLES    as '&hs_base/detalles_pdfs';
 create or replace directory SERVICIO_CONTRATO_PROTOTIPO    as '&hs_base/contratos_pdfs';

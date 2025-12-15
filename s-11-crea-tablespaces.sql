@@ -32,18 +32,17 @@ create undo tablespace undo_prov
   datafile '/unam/bda/pf/c2/d101/undo_prov.dbf' size 100m
   autoextend on next 10m maxsize unlimited;
 
-drop tablespace undo including contents and datafiles cascade constraints;
-
 create temporary tablespace temp_prov
   tempfile '/unam/bda/pf/c0/d101/temp_prov_01.dbf' size 50m,
            '/unam/bda/pf/c0/d102/temp_prov_02.dbf' size 50m,
            '/unam/bda/pf/c0/d103/temp_prov_03.dbf' size 50m
   autoextend on next 10m maxsize unlimited;
 
-drop tablespace temp including contents and datafiles cascade constraints;
-
 alter database default temporary tablespace temp_prov;
 alter system set undo_tablespace = undo_prov scope=both;
+
+drop tablespace undo including contents and datafiles cascade constraints;
+drop tablespace temp including contents and datafiles cascade constraints;
 
 Prompt creando tablespaces del módulo proveedores
 
@@ -103,18 +102,17 @@ create bigfile undo tablespace undo_serv
   datafile '/unam/bda/pf/c2/d201/undo_serv.dbf' size 100m 
   autoextend on next 10m maxsize unlimited;
 
-drop tablespace undo including contents and datafiles cascade constraints;
-
 create temporary tablespace temp_serv
   tempfile '/unam/bda/pf/c0/d201/temp_serv_01.dbf' size 50m,
            '/unam/bda/pf/c0/d202/temp_serv_02.dbf' size 50m,
            '/unam/bda/pf/c0/d203/temp_serv_03.dbf' size 50m
   autoextend on next 10m maxsize unlimited;
 
-drop tablespace temp including contents and datafiles cascade constraints;
-
 alter database default temporary tablespace temp_serv;
 alter system set undo_tablespace = undo_serv scope=both;
+
+drop tablespace undo including contents and datafiles cascade constraints;
+drop tablespace temp including contents and datafiles cascade constraints;
 
 Prompt creando tablespaces del módulo servicios
 
