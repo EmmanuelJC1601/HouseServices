@@ -1,0 +1,26 @@
+
+#@Autor(es):       Emmanuel Jimenez / Jesus Tenorio
+#@Fecha creación:  10/12/2025
+#@Descripción:     Configura RMAN para usar FRA y define la politica de retencion
+
+#Abre sudo nano /etc/profile.d/99-custom-env.sh y pon:
+#export NLS_DATE_FORMAT='yyyy/mm/dd hh24:mi:ss'
+#alias rman='rlwrap rman'
+
+run{
+
+configure channel device type disk clear;
+configure default device type to disk;
+
+configure controlfile autobackup on;
+configure controlfile autobackup format for device type disk to '%F';
+
+configure snapshot controlfile name to '/unam/bda/pf/fast-reco-area/snapcf_free.f';
+
+configure retention policy to redundancy 2;
+
+configure backup optimization on;
+
+show all;
+
+}
