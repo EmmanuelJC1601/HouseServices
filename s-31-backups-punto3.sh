@@ -43,13 +43,6 @@ sqlplus -s serv_admin/1234@servicios <<'EOF'
   exec simula_dia_serv(p_porcentaje => 10);
 EOF
 
-rman target / <<'EOF'
-run{
-  backup as backupset incremental level 0 database plus archivelog tag s1_l0_dom2;
-}
-list backup summary;
-EOF
-
 echo "==> Lunes semana 2"
 sqlplus -s prov_admin/1234@proveedores <<'EOF'
   exec simula_carga_dia_prov(p_num_proveedores => 70);
